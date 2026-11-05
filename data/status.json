@@ -1,0 +1,20 @@
+{
+  "run_time": "2026-11-05T15:22:44Z",
+  "first_run_date": "2026-11-05",
+  "days_with_success": 1,
+  "items": 32,
+  "new_today": [],
+  "gone_today": [],
+  "sources": [
+    {
+      "name": "launches",
+      "ok": true,
+      "count": 22
+    },
+    {
+      "name": "crew",
+      "ok": true,
+      "count": 10
+    }
+  ]
+}
