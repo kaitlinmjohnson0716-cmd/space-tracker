@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Space Tracker: Trends</title>
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0b1026">
+<link rel="icon" href="icon-192.png"><link rel="stylesheet" href="style.css">
+</head><body>
+<main>
+  <h1>Trends</h1>
+  <p class="sub" id="asof">Loading…</p>
+  <h2>Every value over the days</h2>
+  <p class="note">Pick the items to draw. Every number on this page is computed in your browser from <code>data/history.csv</code>, so the page changes as the history grows.</p>
+  <div class="controls">
+    <button id="selProv">All providers</button><button id="selCrew">All crew</button>
+    <button id="selTop">Top picks</button><button id="selNone">Clear</button>
+  </div>
+  <div class="picker" id="picker"></div>
+  <div id="series"></div>
+  <div id="findings"></div>
+</main>
+<script src="vendor/chart.umd.min.js"></script>
+<script src="common.js"></script>
+<script>
+const COLORS = ["#60a5fa","#fbbf24","#34d399","#f472b6","#a78bfa","#fb923c","#22d3ee","#f87171","#a3e635","#e879f9"];
+const charts = {};
+function draw(id, config) {
+  if (charts[id]) charts[id].destroy();
+  Chart.defaults.color = "#9aa6d6"; Chart.defaults.borderColor = "#2a3566";
+  config.options = Object.assign({responsive: true, maintainAspectRatio: false}, config.options || {});
+  charts[id] = new Chart(document.getElementById(id), config);
+}
+const r2 = v => Math.round(v * 100) / 100;
+const mean = a => a.reduce((s, v) => s + v, 0) / a.length;
+function barConfig(labels, values, label, horizontal = true) {
+  return {type: "bar", data: {labels, datasets: [{label, data: values, backgroundColor: "#60a5fa"}]},
+    options: {indexAxis: horizontal ? "y" : "x", plugins: {legend: {display: false}}}};
+}
+function finding(id, heading, text) {
+  document.getElementById("findings").insertAdjacentHTML("beforeend",
+    `<section class="finding"><h2>${esc(heading)}</h2><p>${text}</p><div class="chartbox"><canvas id="${id}"></canvas></div></section>`);
+}
+
+start("trends.html", (data) => {
+  const H = data.history, dates = data.dates;
+  const {latest, cur} = latestAndPrevious(data);
+  document.getElementById("asof").textContent =
+    `${dates.length} day${dates.length === 1 ? "" : "s"} of history (${dates[0]} to ${latest}), ${H.length} rows.`;
+  const prov = H.filter(r => r.kind === "provider"), crew = H.filter(r => r.kind === "astronaut");
+
+  /* ---- series charts with item picker ---- */
+  const items = new Map(); H.forEach(r => items.set(r.item_id, {name: r.item, kind: r.kind}));
+  const sorted = [...items.entries()].sort((a, b) => a[1].name.localeCompare(b[1].name));
+  const topPicks = () => new Set([
+    ...cur.filter(r => r.kind === "provider").sort((a, b) => (b.launches_next_30d || 0) - (a.launches_next_30d || 0)).slice(0, 6).map(r => r.item_id),
+    ...cur.filter(r => r.kind === "astronaut").sort((a, b) => (b.days_in_space || 0) - (a.days_in_space || 0)).slice(0, 3).map(r => r.item_id)]);
+  let chosen = topPicks();
+  const picker = document.getElementById("picker");
+  picker.innerHTML = sorted.map(([id, o]) =>
+    `<label><input type="checkbox" value="${esc(id)}"> ${esc(o.name)}</label>`).join("");
+  document.getElementById("series").innerHTML = NUMERIC.map(n =>
+    `<h2 style="font-size:1.05rem">${n.label} (${n.unit})</h2><div class="chartbox"><canvas id="s_${n.key}"></canvas></div>`).join("");
+  function drawSeries() {
+    picker.querySelectorAll("input").forEach(c => c.checked = chosen.has(c.value));
+    NUMERIC.forEach(n => {
+      const sets = [...chosen].filter(id => H.some(r => r.item_id === id && r[n.key] !== null)).map((id, i) => ({
+        label: items.get(id).name, borderColor: COLORS[i % COLORS.length], backgroundColor: COLORS[i % COLORS.length],
+        tension: .2, spanGaps: true,
+        data: dates.map(d => { const r = H.find(x => x.date === d && x.item_id === id); return r ? r[n.key] : null; })}));
+      draw("s_" + n.key, {type: "line", data: {labels: dates, datasets: sets}, options: {plugins: {legend: {position: "bottom"}}}});
+    });
+  }
+  picker.addEventListener("change", e => { e.target.checked ? chosen.add(e.target.value) : chosen.delete(e.target.value); drawSeries(); });
+  const pick = f => () => { chosen = new Set(sorted.filter(([, o]) => f(o)).map(([id]) => id)); drawSeries(); };
+  document.getElementById("selProv").onclick = pick(o => o.kind === "provider");
+  document.getElementById("selCrew").onclick = pick(o => o.kind === "astronaut");
+  document.getElementById("selNone").onclick = pick(() => false);
+  document.getElementById("selTop").onclick = () => { chosen = topPicks(); drawSeries(); };
+  drawSeries();
+
+  /* ---- 1. busiest provider ---- */
+  const byProv = new Map();
+  prov.forEach(r => { if (r.launches_next_30d !== null) { if (!byProv.has(r.item)) byProv.set(r.item, []); byProv.get(r.item).push(r.launches_next_30d); } });
+  const avgs = [...byProv.entries()].map(([n, v]) => [n, mean(v), v.length]).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+  if (avgs.length) {
+    const [bn, bv, bd] = avgs[0], top = avgs.slice(0, 10);
+    finding("f1", `${bn} has the busiest launch schedule: ${r2(bv)} launches in the next 30 days on average`,
+      `For each provider we take launches_next_30d on every day it appears in the history and average it. ${esc(bn)} averages ${r2(bv)} over ${bd} day${bd === 1 ? "" : "s"}` +
+      (avgs[1] ? `; the runner-up, ${esc(avgs[1][0])}, averages ${r2(avgs[1][1])}.` : ".") + ` The chart shows the ten highest averages out of ${avgs.length} providers.`);
+    draw("f1", barConfig(top.map(x => x[0]), top.map(x => r2(x[1])), "Average launches in 30 days"));
+  }
+
+  /* ---- 2. biggest single-day move ---- */
+  const perDay = [];
+  for (let i = 1; i < dates.length; i++) {
+    const m = computeMoves(rowsOn(H, dates[i - 1]), rowsOn(H, dates[i]), 1e6);
+    perDay.push({date: dates[i], total: m.moves.reduce((s, x) => s + x.score, 0), top: m.moves[0]});
+  }
+  if (perDay.length) {
+    const best = perDay.reduce((a, b) => b.total > a.total ? b : a);
+    const heading = best.top ? `${best.date} was the biggest day for schedule changes (total move score ${best.total})`
+                             : "No provider has changed its launch counts yet";
+    finding("f2", heading,
+      `For every pair of consecutive days, each provider's move score is |change in launches_next_30d| + |change in launches_next_7d|; the chart adds the scores of all providers for each day.` +
+      (best.top ? ` The largest single move that day was ${esc(best.top.item)}: ${best.top.old30} → ${best.top.new30} launches in 30 days and ${best.top.old7} → ${best.top.new7} in 7 days (score ${best.top.score}).` : "") +
+      ` ${perDay.length} day-to-day comparison${perDay.length === 1 ? "" : "s"} so far.`);
+    draw("f2", barConfig(perDay.map(x => x.date), perDay.map(x => x.total), "Total move score", false));
+  } else {
+    finding("f2", "The biggest day for schedule changes will appear after day two",
+      "This section compares each day with the day before it, so it needs at least two days of history.");
+    draw("f2", barConfig([], [], "Total move score", false));
+  }
+
+  /* ---- 3. spread between providers today ---- */
+  const lp = cur.filter(r => r.kind === "provider" && r.launches_next_30d !== null).sort((a, b) => b.launches_next_30d - a.launches_next_30d);
+  if (lp.length) {
+    const hi = lp[0], lo = lp[lp.length - 1], vals = lp.map(r => r.launches_next_30d).sort((a, b) => a - b);
+    const med = vals.length % 2 ? vals[(vals.length - 1) / 2] : (vals[vals.length / 2 - 1] + vals[vals.length / 2]) / 2;
+    finding("f3", `${hi.item} has ${hi.launches_next_30d - lo.launches_next_30d} more launches coming in 30 days than ${lo.item}`,
+      `On ${latest}, ${lp.length} providers have upcoming launches. The most is ${hi.launches_next_30d} (${esc(hi.item)}), the least is ${lo.launches_next_30d} (${esc(lo.item)}), and the median is ${r2(med)}. ` +
+      `The spread is the maximum minus the minimum of launches_next_30d across providers on the latest day.`);
+    draw("f3", barConfig(lp.map(r => r.item), lp.map(r => r.launches_next_30d), "Launches in 30 days"));
+  }
+
+  /* ---- 4. change since first run ---- */
+  const first = new Map(rowsOn(H, dates[0]).map(r => [r.item_id, r]));
+  const ch = cur.filter(r => r.kind === "provider" && first.has(r.item_id) && r.launches_next_30d !== null && first.get(r.item_id).launches_next_30d !== null)
+    .map(r => ({name: r.item, d: r.launches_next_30d - first.get(r.item_id).launches_next_30d})).sort((a, b) => b.d - a.d || a.name.localeCompare(b.name));
+  if (ch.length && dates.length > 1) {
+    const up = ch[0], dn = ch[ch.length - 1];
+    finding("f4", up.d > 0 ? `${up.name} gained the most scheduled launches since the first run (+${up.d})` : "No provider has gained launches since the first run",
+      `Change since the first run is launches_next_30d on ${latest} minus launches_next_30d on ${dates[0]}, for the ${ch.length} providers present on both days. ` +
+      `Biggest rise: ${esc(up.name)} (${up.d >= 0 ? "+" : ""}${up.d}). Biggest fall: ${esc(dn.name)} (${dn.d >= 0 ? "+" : ""}${dn.d}).`);
+    draw("f4", barConfig(ch.map(x => x.name), ch.map(x => x.d), "Change in launches in 30 days"));
+  } else {
+    finding("f4", "Change since the first run will appear after day two",
+      "This section subtracts the first day's launches_next_30d from the latest day's, so it needs at least two days of history.");
+    draw("f4", barConfig([], [], "Change", true));
+  }
+
+  /* ---- 5. longest in space ---- */
+  const cr = cur.filter(r => r.kind === "astronaut" && r.days_in_space !== null).sort((a, b) => b.days_in_space - a.days_in_space);
+  if (cr.length) {
+    finding("f5", `${cr[0].item} has spent ${r2(cr[0].days_in_space)} days in space, the longest of the ${cr.length} people aboard now`,
+      `On ${latest} the crew rows give days_in_space for ${cr.length} people (non-human entries such as test dummies are removed). The longest is ${esc(cr[0].item)} (${esc(cr[0].group)}), ` +
+      `the shortest is ${esc(cr[cr.length - 1].item)} at ${r2(cr[cr.length - 1].days_in_space)} days, and the average is ${r2(mean(cr.map(r => r.days_in_space)))} days.`);
+    draw("f5", barConfig(cr.map(r => r.item), cr.map(r => r.days_in_space), "Days in space"));
+  }
+});
+</script>
+</body></html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Space Tracker: Today</title>
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0b1026">
+<link rel="icon" href="icon-192.png"><link rel="stylesheet" href="style.css">
+</head><body>
+<main>
+  <h1>Today</h1>
+  <p class="sub" id="runtime">Loading…</p>
+  <div class="chips" id="sources"></div>
+  <div class="cards" id="cards"></div>
+  <h2>Biggest moves since the previous run</h2>
+  <div id="moves"></div>
+  <h2>Latest values</h2>
+  <p class="note">Small numbers show the change since the previous run. Crew day counts rise by one every day by design.</p>
+  <div class="tablewrap"><table id="latest"></table></div>
+</main>
+<script src="common.js"></script>
+<script>
+start("index.html", (data, main) => {
+  const s = data.status, {latest, prev, cur, old} = latestAndPrevious(data);
+  document.getElementById("runtime").textContent =
+    "Last run: " + s.run_time.replace("T", " ").replace("Z", " UTC") + " · data for " + latest;
+  document.getElementById("sources").innerHTML = s.sources.map(x =>
+    `<span class="chip ${x.ok ? "ok" : "bad"}">${esc(x.name)}: ${x.ok ? "ok" : "FAILED"} (${x.count} rows)</span>`).join("");
+  const card = (n, l) => `<div class="card"><div class="n">${n}</div><div class="l">${l}</div></div>`;
+  document.getElementById("cards").innerHTML =
+    card(s.items, "items in the latest run") + card(s.days_with_success, "days with data") +
+    card(s.new_today.length, "appeared today") + card(s.gone_today.length, "disappeared today") +
+    card(esc(s.first_run_date || "-"), "first run date");
+
+  const m = computeMoves(old, cur);
+  let html = "";
+  if (!prev) html = '<p class="note">This is the first day, so there is nothing to compare yet.</p>';
+  else if (!m.moves.length) html = "<p>No provider changed its launch counts.</p>";
+  else html = '<ul class="moves">' + m.moves.map(x =>
+    `<li><b>${esc(x.item)}</b>: 30-day launches ${x.old30} → ${x.new30}, 7-day launches ${x.old7} → ${x.new7}</li>`).join("") + "</ul>";
+  if (prev && m.added.length) html += `<p>Appeared: ${m.added.map(esc).join(", ")}</p>`;
+  if (prev && m.gone.length) html += `<p>Disappeared: ${m.gone.map(esc).join(", ")}</p>`;
+  document.getElementById("moves").innerHTML = html;
+
+  const before = new Map(old.map(r => [r.item_id, r]));
+  const head = "<tr><th>Item</th><th>Kind</th><th>Group</th>" + NUMERIC.map(n => `<th class="num">${n.label}</th>`).join("") + "</tr>";
+  const body = cur.map(r => `<tr><td>${esc(r.item)}</td><td>${r.kind}</td><td>${esc(r.group)}</td>` +
+    NUMERIC.map(n => `<td class="num">${fmt(r[n.key])}${deltaHTML(r[n.key], (before.get(r.item_id) || {})[n.key])}</td>`).join("") + "</tr>").join("");
+  document.getElementById("latest").innerHTML = head + body;
+});
+</script>
+</body></html>

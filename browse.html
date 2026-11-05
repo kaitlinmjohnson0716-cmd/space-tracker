@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Space Tracker: Browse</title>
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0b1026">
+<link rel="icon" href="icon-192.png"><link rel="stylesheet" href="style.css">
+</head><body>
+<main>
+  <h1>Browse</h1>
+  <p class="sub" id="asof">Loading…</p>
+  <div class="controls">
+    <input id="q" type="search" placeholder="Search item names" aria-label="Search item names">
+    <select id="kind" aria-label="Filter by kind"></select>
+    <select id="group" aria-label="Filter by group"></select>
+    <label><input id="short" type="checkbox"> Shortlist only</label>
+    <span class="note" id="count"></span>
+  </div>
+  <div class="tablewrap"><table id="t"></table></div>
+  <p class="note">Click a column heading to sort; click again to reverse. ☆ saves an item to your shortlist in this browser.</p>
+</main>
+<script src="common.js"></script>
+<script>
+start("browse.html", (data) => {
+  const {latest, cur} = latestAndPrevious(data);
+  document.getElementById("asof").textContent = "Latest values, " + latest;
+  const short = getShortlist();
+  let sortKey = "item", dir = 1;
+  const kinds = [...new Set(cur.map(r => r.kind))].sort();
+  const groups = [...new Set(cur.map(r => r.group))].sort();
+  const fill = (id, all, vals) => document.getElementById(id).innerHTML =
+    `<option value="">${all}</option>` + vals.map(v => `<option>${esc(v)}</option>`).join("");
+  fill("kind", "All kinds", kinds); fill("group", "All groups (countries / agencies)", groups);
+
+  function draw() {
+    const q = document.getElementById("q").value.trim().toLowerCase();
+    const k = document.getElementById("kind").value, g = document.getElementById("group").value;
+    const only = document.getElementById("short").checked;
+    let rows = cur.filter(r => (!q || r.item.toLowerCase().includes(q)) && (!k || r.kind === k) &&
+      (!g || r.group === g) && (!only || short.has(r.item_id)));
+    rows.sort((a, b) => {
+      const x = a[sortKey], y = b[sortKey];
+      if (x === null && y === null) return 0;
+      if (x === null) return 1; if (y === null) return -1;     // empty values always last
+      return (typeof x === "number" ? x - y : String(x).localeCompare(String(y))) * dir;
+    });
+    document.getElementById("count").textContent = rows.length + " of " + cur.length + " items";
+    const arrow = key => key === sortKey ? (dir === 1 ? " ▲" : " ▼") : "";
+    let h = "<tr><th></th>";
+    h += `<th class="sortable" data-k="item">Item${arrow("item")}</th><th>Kind</th><th>Group</th>`;
+    NUMERIC.forEach(n => h += `<th class="sortable num" data-k="${n.key}">${n.label}${arrow(n.key)}</th>`);
+    h += "</tr>";
+    const b = rows.map(r => `<tr><td><button class="star${short.has(r.item_id) ? " on" : ""}" data-id="${esc(r.item_id)}" aria-label="Shortlist ${esc(r.item)}">${short.has(r.item_id) ? "★" : "☆"}</button></td>` +
+      `<td>${esc(r.item)}</td><td>${r.kind}</td><td>${esc(r.group)}</td>` +
+      NUMERIC.map(n => `<td class="num">${fmt(r[n.key])}</td>`).join("") + "</tr>").join("");
+    document.getElementById("t").innerHTML = h + b;
+  }
+  document.getElementById("t").addEventListener("click", e => {
+    const th = e.target.closest("th.sortable");
+    if (th) { const k = th.dataset.k; if (k === sortKey) dir = -dir; else { sortKey = k; dir = k === "item" ? 1 : -1; } draw(); return; }
+    const st = e.target.closest(".star");
+    if (st) { const id = st.dataset.id; short.has(id) ? short.delete(id) : short.add(id); saveShortlist(short); draw(); }
+  });
+  ["q", "kind", "group", "short"].forEach(id => document.getElementById(id).addEventListener("input", draw));
+  draw();
+});
+</script>
+</body></html>
