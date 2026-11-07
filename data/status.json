@@ -1,15 +1,17 @@
 {
-  "run_time": "2026-11-06T23:10:01Z",
+  "run_time": "2026-11-07T12:55:46Z",
   "first_run_date": "2026-11-05",
-  "days_with_success": 2,
-  "items": 32,
+  "days_with_success": 3,
+  "items": 31,
   "new_today": [],
-  "gone_today": [],
+  "gone_today": [
+    "provider:galactic-energy"
+  ],
   "sources": [
     {
       "name": "launches",
       "ok": true,
-      "count": 22
+      "count": 21
     },
     {
       "name": "crew",
