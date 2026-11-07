@@ -1,9 +1,11 @@
 {
-  "run_time": "2026-11-07T12:55:46Z",
+  "run_time": "2026-11-07T21:52:05Z",
   "first_run_date": "2026-11-05",
   "days_with_success": 3,
-  "items": 31,
-  "new_today": [],
+  "items": 32,
+  "new_today": [
+    "provider:russian-space-forces"
+  ],
   "gone_today": [
     "provider:galactic-energy"
   ],
@@ -11,7 +13,7 @@
     {
       "name": "launches",
       "ok": true,
-      "count": 21
+      "count": 22
     },
     {
       "name": "crew",

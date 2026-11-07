@@ -91,6 +91,7 @@ date,item_id,item,source,kind,group,launches_next_7d,launches_next_30d,days_to_n
 2026-11-07,provider:rocket-factory-augsburg,Rocket Factory Augsburg,launches,provider,SaxaVord Spaceport,0,0,54.0,,
 2026-11-07,provider:rocket-lab,Rocket Lab,launches,provider,New Zealand,0,1,7.23,,
 2026-11-07,provider:russian-federal-space-agency-roscosmos,Russian Federal Space Agency (ROSCOSMOS),launches,provider,Republic of Kazakhstan,0,1,17.21,,
+2026-11-07,provider:russian-space-forces,Russian Space Forces,launches,provider,Russian Federation,1,1,0.56,,
 2026-11-07,provider:spacex,SpaceX,launches,provider,USA,4,8,0.03,,
 2026-11-07,provider:united-launch-alliance,United Launch Alliance,launches,provider,USA,1,1,6.75,,
 2026-11-07,provider:unknown,Unknown,launches,provider,USA,0,0,54.0,,
