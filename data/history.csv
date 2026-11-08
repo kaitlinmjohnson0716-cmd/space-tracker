@@ -117,6 +117,7 @@ date,item_id,item,source,kind,group,launches_next_7d,launches_next_30d,days_to_n
 2026-11-08,provider:indian-space-research-organization,Indian Space Research Organization,launches,provider,India,0,2,22.0,,
 2026-11-08,provider:isar-aerospace,Isar Aerospace,launches,provider,Andøya Spaceport,0,1,18.83,,
 2026-11-08,provider:japan-aerospace-exploration-agency,Japan Aerospace Exploration Agency,launches,provider,Japan,0,0,53.0,,
+2026-11-08,provider:latitude,Latitude,launches,provider,Etlaq Spaceport,0,0,53.0,,
 2026-11-08,provider:mitsubishi-heavy-industries,Mitsubishi Heavy Industries,launches,provider,Japan,0,0,53.0,,
 2026-11-08,provider:orienspace-technology,Orienspace Technology,launches,provider,Haiyang Oriental Spaceport,0,0,53.0,,
 2026-11-08,provider:relativity-space,Relativity Space,launches,provider,USA,0,0,53.0,,
