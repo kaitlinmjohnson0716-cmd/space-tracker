@@ -1,18 +1,17 @@
 {
-  "run_time": "2026-11-09T16:11:25Z",
+  "run_time": "2026-11-10T01:32:27Z",
   "first_run_date": "2026-11-05",
-  "days_with_success": 5,
-  "items": 30,
-  "new_today": [],
-  "gone_today": [
-    "provider:japan-aerospace-exploration-agency",
-    "provider:rocket-factory-augsburg"
+  "days_with_success": 6,
+  "items": 31,
+  "new_today": [
+    "provider:expace"
   ],
+  "gone_today": [],
   "sources": [
     {
       "name": "launches",
       "ok": true,
-      "count": 20
+      "count": 21
     },
     {
       "name": "crew",
