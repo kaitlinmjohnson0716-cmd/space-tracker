@@ -185,6 +185,6 @@ date,item_id,item,source,kind,group,launches_next_7d,launches_next_30d,days_to_n
 2026-11-10,provider:relativity-space,Relativity Space,launches,provider,USA,0,0,51.0,,
 2026-11-10,provider:rocket-lab,Rocket Lab,launches,provider,New Zealand,1,1,4.23,,
 2026-11-10,provider:russian-federal-space-agency-roscosmos,Russian Federal Space Agency (ROSCOSMOS),launches,provider,Republic of Kazakhstan,0,1,14.21,,
-2026-11-10,provider:spacex,SpaceX,launches,provider,USA,3,8,1.12,,
+2026-11-10,provider:spacex,SpaceX,launches,provider,USA,3,8,2.11,,
 2026-11-10,provider:united-launch-alliance,United Launch Alliance,launches,provider,USA,1,1,3.75,,
 2026-11-10,provider:unknown,Unknown,launches,provider,USA,0,0,51.0,,
