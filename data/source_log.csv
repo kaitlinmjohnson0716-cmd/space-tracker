@@ -33,3 +33,5 @@ date,run_time,source,ok,count,error
 2026-11-12,2026-11-12T15:08:09Z,crew,true,10,
 2026-11-12,2026-11-12T23:39:48Z,launches,true,20,
 2026-11-12,2026-11-12T23:39:48Z,crew,true,10,
+2026-11-13,2026-11-13T14:30:45Z,launches,true,20,
+2026-11-13,2026-11-13T14:30:45Z,crew,true,10,
