@@ -307,5 +307,5 @@ date,item_id,item,source,kind,group,launches_next_7d,launches_next_30d,days_to_n
 2026-11-14,provider:rocket-lab,Rocket Lab,launches,provider,New Zealand,1,2,0.23,,
 2026-11-14,provider:russian-federal-space-agency-roscosmos,Russian Federal Space Agency (ROSCOSMOS),launches,provider,Russian Federation,1,2,0.05,,
 2026-11-14,provider:spacex,SpaceX,launches,provider,USA,1,7,4.13,,
-2026-11-14,provider:united-launch-alliance,United Launch Alliance,launches,provider,USA,1,1,0.73,,
+2026-11-14,provider:united-launch-alliance,United Launch Alliance,launches,provider,USA,1,1,1.72,,
 2026-11-14,provider:unknown,Unknown,launches,provider,USA,0,0,47.0,,
