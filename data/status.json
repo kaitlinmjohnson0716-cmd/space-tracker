@@ -1,15 +1,10 @@
 {
-  "run_time": "2026-11-20T23:59:32Z",
+  "run_time": "2026-11-21T14:36:18Z",
   "first_run_date": "2026-11-05",
-  "days_with_success": 16,
+  "days_with_success": 17,
   "items": 31,
-  "new_today": [
-    "provider:cas-space",
-    "provider:skyroot-aerospace"
-  ],
-  "gone_today": [
-    "provider:blue-origin"
-  ],
+  "new_today": [],
+  "gone_today": [],
   "sources": [
     {
       "name": "launches",
