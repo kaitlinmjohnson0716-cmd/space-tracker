@@ -521,16 +521,16 @@ date,item_id,item,source,kind,group,launches_next_7d,launches_next_30d,days_to_n
 2026-11-21,provider:spacex,SpaceX,launches,provider,USA,3,5,0.18,,
 2026-11-21,provider:united-launch-alliance,United Launch Alliance,launches,provider,USA,0,0,40.0,,
 2026-11-21,provider:unknown,Unknown,launches,provider,USA,0,0,40.0,,
-2026-11-22,astro:582,Jessica Watkins,crew,astronaut,National Aeronautics and Space Administration,,,,221.57,0.0
-2026-11-22,astro:642,Joshua Kutryk,crew,astronaut,Canadian Space Agency,,,,51.03,14.17
-2026-11-22,astro:649,Anna Kikina,crew,astronaut,Russian Federal Space Agency (ROSCOSMOS),,,,287.46,0.0
-2026-11-22,astro:650,Pyotr Dubrov,crew,astronaut,Russian Federal Space Agency (ROSCOSMOS),,,,485.2,29.82
-2026-11-22,astro:710,Luke Delaney,crew,astronaut,National Aeronautics and Space Administration,,,,51.03,0.0
-2026-11-22,astro:713,Anil Menon,crew,astronaut,National Aeronautics and Space Administration,,,,130.04,33.65
-2026-11-22,astro:764,Zhu Yangzhu,crew,astronaut,China National Space Administration,,,,334.97,13.4
-2026-11-22,astro:915,Sergey Teteryatnikov,crew,astronaut,Russian Federal Space Agency (ROSCOSMOS),,,,51.03,0.0
-2026-11-22,astro:916,Zhang Zhiyuan,crew,astronaut,China National Space Administration,,,,181.03,5.48
-2026-11-22,astro:917,Lai Ka-ying,crew,astronaut,China National Space Administration,,,,181.03,0.0
+2026-11-22,astro:582,Jessica Watkins,crew,astronaut,National Aeronautics and Space Administration,,,,222.56,0.0
+2026-11-22,astro:642,Joshua Kutryk,crew,astronaut,Canadian Space Agency,,,,52.02,14.17
+2026-11-22,astro:649,Anna Kikina,crew,astronaut,Russian Federal Space Agency (ROSCOSMOS),,,,288.45,0.0
+2026-11-22,astro:650,Pyotr Dubrov,crew,astronaut,Russian Federal Space Agency (ROSCOSMOS),,,,486.19,29.82
+2026-11-22,astro:710,Luke Delaney,crew,astronaut,National Aeronautics and Space Administration,,,,52.02,0.0
+2026-11-22,astro:713,Anil Menon,crew,astronaut,National Aeronautics and Space Administration,,,,131.04,33.65
+2026-11-22,astro:764,Zhu Yangzhu,crew,astronaut,China National Space Administration,,,,335.97,13.4
+2026-11-22,astro:915,Sergey Teteryatnikov,crew,astronaut,Russian Federal Space Agency (ROSCOSMOS),,,,52.02,0.0
+2026-11-22,astro:916,Zhang Zhiyuan,crew,astronaut,China National Space Administration,,,,182.02,5.48
+2026-11-22,astro:917,Lai Ka-ying,crew,astronaut,China National Space Administration,,,,182.02,0.0
 2026-11-22,provider:agency-for-defense-development,Agency for Defense Development,launches,provider,Sea Launch,0,1,8.0,,
 2026-11-22,provider:arianespace,Arianespace,launches,provider,French Guiana,1,2,1.46,,
 2026-11-22,provider:avio-s-p-a,Avio S.p.A,launches,provider,French Guiana,0,0,39.0,,
@@ -547,7 +547,7 @@ date,item_id,item,source,kind,group,launches_next_7d,launches_next_30d,days_to_n
 2026-11-22,provider:orienspace-technology,Orienspace Technology,launches,provider,Haiyang Oriental Spaceport,0,0,39.0,,
 2026-11-22,provider:relativity-space,Relativity Space,launches,provider,USA,0,0,39.0,,
 2026-11-22,provider:rocket-lab,Rocket Lab,launches,provider,New Zealand,1,1,5.0,,
-2026-11-22,provider:russian-federal-space-agency-roscosmos,Russian Federal Space Agency (ROSCOSMOS),launches,provider,Republic of Kazakhstan,1,1,2.21,,
+2026-11-22,provider:russian-federal-space-agency-roscosmos,Russian Federal Space Agency (ROSCOSMOS),launches,provider,Republic of Kazakhstan,1,1,2.43,,
 2026-11-22,provider:skyroot-aerospace,Skyroot Aerospace,launches,provider,India,0,0,39.0,,
 2026-11-22,provider:spacex,SpaceX,launches,provider,USA,2,4,0.52,,
 2026-11-22,provider:united-launch-alliance,United Launch Alliance,launches,provider,USA,0,0,39.0,,
