@@ -552,3 +552,35 @@ date,item_id,item,source,kind,group,launches_next_7d,launches_next_30d,days_to_n
 2026-11-22,provider:spacex,SpaceX,launches,provider,USA,2,4,0.52,,
 2026-11-22,provider:united-launch-alliance,United Launch Alliance,launches,provider,USA,0,0,39.0,,
 2026-11-22,provider:unknown,Unknown,launches,provider,USA,0,0,39.0,,
+2026-11-23,astro:582,Jessica Watkins,crew,astronaut,National Aeronautics and Space Administration,,,,223.56,0.0
+2026-11-23,astro:642,Joshua Kutryk,crew,astronaut,Canadian Space Agency,,,,53.02,14.17
+2026-11-23,astro:649,Anna Kikina,crew,astronaut,Russian Federal Space Agency (ROSCOSMOS),,,,289.45,0.0
+2026-11-23,astro:650,Pyotr Dubrov,crew,astronaut,Russian Federal Space Agency (ROSCOSMOS),,,,487.19,29.82
+2026-11-23,astro:710,Luke Delaney,crew,astronaut,National Aeronautics and Space Administration,,,,53.02,0.0
+2026-11-23,astro:713,Anil Menon,crew,astronaut,National Aeronautics and Space Administration,,,,132.04,33.65
+2026-11-23,astro:764,Zhu Yangzhu,crew,astronaut,China National Space Administration,,,,336.97,13.4
+2026-11-23,astro:915,Sergey Teteryatnikov,crew,astronaut,Russian Federal Space Agency (ROSCOSMOS),,,,53.02,0.0
+2026-11-23,astro:916,Zhang Zhiyuan,crew,astronaut,China National Space Administration,,,,183.02,5.48
+2026-11-23,astro:917,Lai Ka-ying,crew,astronaut,China National Space Administration,,,,183.02,0.0
+2026-11-23,provider:agency-for-defense-development,Agency for Defense Development,launches,provider,Sea Launch,0,1,7.0,,
+2026-11-23,provider:arianespace,Arianespace,launches,provider,French Guiana,1,2,1.45,,
+2026-11-23,provider:avio-s-p-a,Avio S.p.A,launches,provider,French Guiana,0,0,38.0,,
+2026-11-23,provider:cas-space,CAS Space,launches,provider,Haiyang Oriental Spaceport,0,1,8.07,,
+2026-11-23,provider:china-aerospace-science-and-technology-corporation,China Aerospace Science and Technology Corporation,launches,provider,People's Republic of China,4,5,2.01,,
+2026-11-23,provider:deep-blue-aerospace,Deep Blue Aerospace,launches,provider,Haiyang Oriental Spaceport,0,0,38.0,,
+2026-11-23,provider:european-space-agency,European Space Agency,launches,provider,Esrange Space Center,0,0,38.0,,
+2026-11-23,provider:expace,ExPace,launches,provider,People's Republic of China,0,1,7.0,,
+2026-11-23,provider:i-space,i-Space,launches,provider,People's Republic of China,0,0,38.0,,
+2026-11-23,provider:indian-space-research-organization,Indian Space Research Organization,launches,provider,India,0,0,38.0,,
+2026-11-23,provider:isar-aerospace,Isar Aerospace,launches,provider,Andøya Spaceport,0,0,38.0,,
+2026-11-23,provider:latitude,Latitude,launches,provider,Etlaq Spaceport,0,0,38.0,,
+2026-11-23,provider:mitsubishi-heavy-industries,Mitsubishi Heavy Industries,launches,provider,Japan,0,0,48.96,,
+2026-11-23,provider:orienspace-technology,Orienspace Technology,launches,provider,Haiyang Oriental Spaceport,0,0,38.0,,
+2026-11-23,provider:relativity-space,Relativity Space,launches,provider,USA,0,0,38.0,,
+2026-11-23,provider:rocket-lab,Rocket Lab,launches,provider,New Zealand,1,1,4.0,,
+2026-11-23,provider:russian-federal-space-agency-roscosmos,Russian Federal Space Agency (ROSCOSMOS),launches,provider,Republic of Kazakhstan,1,1,1.43,,
+2026-11-23,provider:skyroot-aerospace,Skyroot Aerospace,launches,provider,India,0,0,38.0,,
+2026-11-23,provider:space-one,Space One,launches,provider,Japan,0,0,60.0,,
+2026-11-23,provider:spacex,SpaceX,launches,provider,USA,3,4,1.66,,
+2026-11-23,provider:united-launch-alliance,United Launch Alliance,launches,provider,USA,0,0,38.0,,
+2026-11-23,provider:unknown,Unknown,launches,provider,USA,0,0,38.0,,
