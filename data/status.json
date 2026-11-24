@@ -1,15 +1,18 @@
 {
-  "run_time": "2026-11-24T03:57:43Z",
+  "run_time": "2026-11-24T17:37:27Z",
   "first_run_date": "2026-11-05",
   "days_with_success": 20,
-  "items": 32,
+  "items": 30,
   "new_today": [],
-  "gone_today": [],
+  "gone_today": [
+    "provider:relativity-space",
+    "provider:unknown"
+  ],
   "sources": [
     {
       "name": "launches",
       "ok": true,
-      "count": 22
+      "count": 20
     },
     {
       "name": "crew",
