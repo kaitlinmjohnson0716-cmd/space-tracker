@@ -79,3 +79,5 @@ date,run_time,source,ok,count,error
 2026-11-24,2026-11-24T03:57:43Z,crew,true,10,
 2026-11-24,2026-11-24T17:37:27Z,launches,true,20,
 2026-11-24,2026-11-24T17:37:27Z,crew,true,10,
+2026-11-25,2026-11-25T02:30:31Z,launches,true,19,
+2026-11-25,2026-11-25T02:30:31Z,crew,true,10,
