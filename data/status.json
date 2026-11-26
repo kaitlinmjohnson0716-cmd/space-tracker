@@ -1,16 +1,10 @@
 {
-  "run_time": "2026-11-25T17:08:43Z",
+  "run_time": "2026-11-26T01:47:35Z",
   "first_run_date": "2026-11-05",
-  "days_with_success": 21,
+  "days_with_success": 22,
   "items": 32,
-  "new_today": [
-    "astro:684",
-    "astro:925",
-    "astro:926"
-  ],
-  "gone_today": [
-    "provider:russian-federal-space-agency-roscosmos"
-  ],
+  "new_today": [],
+  "gone_today": [],
   "sources": [
     {
       "name": "launches",
